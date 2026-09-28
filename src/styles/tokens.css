@@ -1,0 +1,56 @@
+/* ============================================================
+   TOKENS — CSS custom properties for the SANIME design system
+   ============================================================ */
+
+/* Dark mode (default) */
+:root,
+.dark {
+  --bg: #07070D;
+  --bg-rgb: 7, 7, 13;
+
+  --orb-pink: #FF4D8D;
+  --orb-violet: #8B5CF6;
+  --orb-cyan: #22D3EE;
+
+  --text: rgba(255, 255, 255, 0.94);
+  --text-2: rgba(255, 255, 255, 0.66);
+  --text-3: rgba(255, 255, 255, 0.42);
+
+  --accent-grad: linear-gradient(135deg, #FF4D8D, #8B5CF6);
+  --accent-from: #FF4D8D;
+  --accent-to: #8B5CF6;
+
+  /* Glass tints */
+  --glass-1-from: rgba(255, 255, 255, 0.08);
+  --glass-1-to: rgba(255, 255, 255, 0.02);
+  --glass-2-from: rgba(255, 255, 255, 0.14);
+  --glass-2-to: rgba(255, 255, 255, 0.04);
+  --glass-3-from: rgba(255, 255, 255, 0.20);
+  --glass-3-to: rgba(255, 255, 255, 0.07);
+
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-highlight: rgba(255, 255, 255, 0.35);
+
+  /* Noise overlay (base64 SVG) */
+  --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* Light mode */
+.light {
+  --bg: #EEF0FA;
+  --bg-rgb: 238, 240, 250;
+
+  --text: rgba(20, 20, 31, 0.94);
+  --text-2: rgba(20, 20, 31, 0.66);
+  --text-3: rgba(20, 20, 31, 0.42);
+
+  --glass-1-from: rgba(255, 255, 255, 0.55);
+  --glass-1-to: rgba(255, 255, 255, 0.25);
+  --glass-2-from: rgba(255, 255, 255, 0.65);
+  --glass-2-to: rgba(255, 255, 255, 0.35);
+  --glass-3-from: rgba(255, 255, 255, 0.75);
+  --glass-3-to: rgba(255, 255, 255, 0.50);
+
+  --glass-border: rgba(255, 255, 255, 0.70);
+  --glass-highlight: rgba(255, 255, 255, 0.80);
+}

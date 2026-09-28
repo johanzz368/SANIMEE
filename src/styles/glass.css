@@ -1,0 +1,208 @@
+/* ============================================================
+   GLASS — Liquid glass utility classes and components
+   ============================================================ */
+
+/* Base glass recipe */
+.glass-base {
+  position: relative;
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    0 10px 40px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+/* Specular highlight (top-left corner glow) */
+.glass-base::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 18% 18%,
+    rgba(255, 255, 255, 0.18) 0%,
+    transparent 60%
+  );
+  border-radius: inherit;
+  z-index: 1;
+}
+
+/* Sheen layer — follows cursor via --mx/--my (desktop hover only) */
+.glass-base::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at calc(var(--mx, 50%) * 1%) calc(var(--my, 50%) * 1%),
+    rgba(255, 255, 255, 0.12) 0%,
+    transparent 55%
+  );
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 250ms;
+  z-index: 2;
+}
+
+@media (hover: hover) {
+  .glass-base:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Noise texture */
+.glass-noise::before {
+  background-image: var(--noise);
+  background-size: 256px 256px;
+  background-repeat: repeat;
+  opacity: 0.04;
+}
+
+/* Level 1 — Cards, chips */
+.glass-1 {
+  background: linear-gradient(135deg, var(--glass-1-from), var(--glass-1-to));
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+}
+
+/* Level 2 — Panels, navbar */
+.glass-2 {
+  background: linear-gradient(135deg, var(--glass-2-from), var(--glass-2-to));
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+}
+
+/* Level 3 — Modal, player controls */
+.glass-3 {
+  background: linear-gradient(135deg, var(--glass-3-from), var(--glass-3-to));
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+}
+
+/* Fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-1 { background: rgba(20, 20, 32, 0.92); }
+  .glass-2 { background: rgba(16, 16, 28, 0.94); }
+  .glass-3 { background: rgba(12, 12, 22, 0.96); }
+}
+
+/* Reduced transparency — simplify glass for users who prefer it */
+@media (prefers-reduced-transparency: reduce) {
+  .glass-1, .glass-2, .glass-3 {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(20, 20, 32, 0.90);
+  }
+  .glass-base::before,
+  .glass-base::after {
+    display: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .glass-base::after {
+    transition: none;
+  }
+}
+
+/* Card hover lift */
+.card-hover {
+  transition: transform 250ms cubic-bezier(.2,.8,.2,1), box-shadow 250ms cubic-bezier(.2,.8,.2,1);
+  will-change: transform;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 20px 60px rgba(0, 0, 0, 0.45),
+    0 0 40px rgba(139, 92, 246, 0.2);
+}
+
+/* Button press */
+.btn-press {
+  transition: transform 180ms cubic-bezier(.2,.8,.2,1), border-radius 180ms;
+}
+.btn-press:active {
+  transform: scale(0.96);
+}
+
+/* Accent gradient text */
+.text-accent {
+  background: var(--accent-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Gradient border helper */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--accent-grad);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Focus ring using accent gradient */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--accent-from);
+  outline-offset: 2px;
+}
+
+/* Shimmer skeleton */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--glass-1-from) 25%,
+    var(--glass-2-from) 50%,
+    var(--glass-1-from) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-3);
+}
+
+/* Ambient glow below a card (for hover) */
+.card-glow::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 10%;
+  right: 10%;
+  height: 40px;
+  background: var(--accent-grad);
+  filter: blur(20px);
+  opacity: 0;
+  transition: opacity 250ms;
+  z-index: -1;
+}
+.card-glow:hover::after {
+  opacity: 0.35;
+}

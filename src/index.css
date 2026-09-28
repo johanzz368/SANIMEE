@@ -1,0 +1,130 @@
+@import './styles/tokens.css';
+@import './styles/glass.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color 300ms, color 300ms;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Poster aspect ratio */
+.aspect-poster {
+  aspect-ratio: 2 / 3;
+}
+
+/* Text shadow for glass contrast */
+.text-shadow {
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Gradient overlay bottom */
+.gradient-bottom {
+  background: linear-gradient(to top, rgba(7,7,13,0.95) 0%, rgba(7,7,13,0.5) 50%, transparent 100%);
+}
+
+.light .gradient-bottom {
+  background: linear-gradient(to top, rgba(238,240,250,0.9) 0%, rgba(238,240,250,0.4) 50%, transparent 100%);
+}
+
+/* Scroll snap for carousels */
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+/* Safe area padding for mobile */
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom, 16px), 16px);
+}
+
+/* Line clamp utilities */
+.line-clamp-1 { 
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+.line-clamp-2 { 
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.line-clamp-3 { 
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* Will-change for animated elements (removed after transition via JS) */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* Animate shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Player glow */
+.player-glow {
+  box-shadow: 0 0 80px rgba(139, 92, 246, 0.25), 0 0 30px rgba(255, 77, 141, 0.15);
+}
+
+/* Sakura petal */
+.sakura-petal {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50% 0 50% 0;
+  background: linear-gradient(135deg, #FF4D8D, rgba(255,77,141,0.5));
+  pointer-events: none;
+}
