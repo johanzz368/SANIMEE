@@ -1,5 +1,5 @@
 import React, { useRef, useCallback } from 'react';
-import { clamp } from '../../lib/utils';
+import { clamp } from '../../../lib/utils';
 
 interface GlassProps extends React.HTMLAttributes<HTMLDivElement> {
   level?: 1 | 2 | 3;
